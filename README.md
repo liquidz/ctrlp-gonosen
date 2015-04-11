@@ -1,1 +1,1 @@
-# ctrlp-gonosen
+# ctrlp-gonosen.vim

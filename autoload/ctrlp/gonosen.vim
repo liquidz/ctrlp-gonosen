@@ -14,7 +14,7 @@ call add(g:ctrlp_ext_vars, {
     \ })
 
 function! ctrlp#gonosen#init() abort
-  return gonosen#get_directory_list()
+  return gonosen#get_candidates()
 endfunction
 
 function! ctrlp#gonosen#accept(mode, dir) abort
