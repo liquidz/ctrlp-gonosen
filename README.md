@@ -1,6 +1,7 @@
 # ctrlp-gonosen.vim [![Circle CI](https://circleci.com/gh/liquidz/ctrlp-gonosen.vim.svg?style=svg)](https://circleci.com/gh/liquidz/ctrlp-gonosen.vim)
 
 A [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim) extension to open files across projects.
+This is more powerful `:CtrlPBookmarkDir`.
 
 ![screencast](assets/screencast.gif)
 
