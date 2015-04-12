@@ -1,6 +1,6 @@
 *ctrlp-gonosen.vim.txt*	ctrlp gonosen extension
 
-Version: 1.0.0
+Version: 1.0.1
 Author : uochan <liquidz.uo+vim@gmail.com>
 License: MIT LICENSE
 
@@ -27,6 +27,7 @@ selecting file with CtrlP.
 Requirement:
  - Vim 7.0 or later
  - CtrlP
+   https://github.com/ctrlpvim/ctrlp.vim
 
 Lateste Version:
  - https://github.com/liquidz/ctrlp-gonosen.vim
@@ -54,6 +55,12 @@ gonosen#load_bookmarks(file)				*gonosen#load_bookmarks*
 gonosen#load_repositories()				*gonosen#load_repositories*
 	Return repository list that is managed by `ghq`.
 	Return empty array if `ghq` is not installed.
+	
+
+gonosen#load_unite_bookmarks()				*gonosen#load_unite_bookmarks*
+	Return unite-bookmark directories.
+	Unite bookmark file is defined by |g:gonosen#unite_bookmark_name|.
+	
 
 gonosen#get_candidates()				*gonosen#get_candidates*
 	Return candidates that are shown in CtrlP.
@@ -71,7 +78,12 @@ Customizing					*ctrlp-gonosen.vim-customizing*
 
 g:gonosen#bookmark_file				*g:gonosen#bookmark_file*
 	Bookmark file path.
-	Default: ~/.bookmark
+	Default value is '~/.bookmark'.
+	
+
+g:gonosen#unite_bookmark_name				*g:gonosen#unite_bookmark_name*
+	Unite Bookmark name.
+	Default value is 'default'.
 
 
 
