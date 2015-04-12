@@ -23,7 +23,8 @@ Execute `:CtrlPGonosen`.
 
 ### Project Candidates
 
- * [`ghq`](https://github.com/motemen/ghq) managed repositories
+ * [ghq](https://github.com/motemen/ghq) managed repositories
+ * [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim) bookmarked directories
  * [Unite](https://github.com/Shougo/unite.vim) bookmarked directories
  * Local bookmarked directories
   * Default bookmark file is `~/.bookmark`.

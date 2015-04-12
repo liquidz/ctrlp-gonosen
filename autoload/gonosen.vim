@@ -1,10 +1,10 @@
 ""
-" *ctrlp-gonosen.vim* is a CtrlP extension to specify a directory before
-" selecting file with CtrlP.
+" *ctrlp-gonosen.vim* is a ctrlp extension to specify a directory before
+" selecting file with ctrlp.
 "
 " Requirement:
 "  - Vim 7.0 or later
-"  - CtrlP
+"  - ctrlp.vim
 "    https://github.com/ctrlpvim/ctrlp.vim
 "
 " Lateste Version:
@@ -107,12 +107,35 @@ function! gonosen#load_unite_bookmarks() abort
   return []
 endfunction
 
+" DI for |gonosen#load_ctrlp_bookmarks|
+try
+  let g:gonosen#ctrlp_bookmark_file =
+      \ s:FP.join(ctrlp#utils#cachedir(), 'bkd', 'cache.txt')
+catch /E117.*/
+  let g:gonosen#ctrlp_bookmark_file = ''
+endtry
+
 ""
-" Return candidates that are shown in CtrlP.
+" Return ctrlp bookmark directories.
+"
+function! gonosen#load_ctrlp_bookmarks() abort
+  let file = g:gonosen#ctrlp_bookmark_file
+  if filereadable(file)
+    return s:_.chain(readfile(file))
+        \.map('split(v:val, "\t")')
+        \.map('v:val[1]')
+        \.value()
+  endif
+  return []
+endfunction
+
+""
+" Return candidates that are shown in ctrlp.
 "
 function! gonosen#get_candidates() abort
   let dirs = gonosen#load_bookmarks(g:gonosen#bookmark_file)
       \ + gonosen#load_repositories()
+      \ + gonosen#load_ctrlp_bookmarks()
       \ + gonosen#load_unite_bookmarks()
 
   return s:_.chain(dirs)

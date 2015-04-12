@@ -1,0 +1,2 @@
+foo	~/ctrlp/bar
+hello	~/ctrlp/world

@@ -1,6 +1,6 @@
 *ctrlp-gonosen.vim.txt*	ctrlp gonosen extension
 
-Version: 1.0.1
+Version: 1.0.2
 Author : uochan <liquidz.uo+vim@gmail.com>
 License: MIT LICENSE
 
@@ -21,12 +21,12 @@ Changelog					|ctrlp-gonosen.vim-changelog|
 ==============================================================================
 Introduction					*ctrlp-gonosen.vim-introduction*
 
-*ctrlp-gonosen.vim* is a CtrlP extension to specify a directory before
-selecting file with CtrlP.
+*ctrlp-gonosen.vim* is a ctrlp extension to specify a directory before
+selecting file with ctrlp.
 
 Requirement:
  - Vim 7.0 or later
- - CtrlP
+ - ctrlp.vim
    https://github.com/ctrlpvim/ctrlp.vim
 
 Lateste Version:
@@ -62,8 +62,12 @@ gonosen#load_unite_bookmarks()				*gonosen#load_unite_bookmarks*
 	Unite bookmark file is defined by |g:gonosen#unite_bookmark_name|.
 	
 
+gonosen#load_ctrlp_bookmarks()				*gonosen#load_ctrlp_bookmarks*
+	Return ctrlp bookmark directories.
+	
+
 gonosen#get_candidates()				*gonosen#get_candidates*
-	Return candidates that are shown in CtrlP.
+	Return candidates that are shown in ctrlp.
 	
 
 
