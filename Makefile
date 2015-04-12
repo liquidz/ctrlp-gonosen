@@ -1,6 +1,10 @@
+VITAL_MODULES = System.Filepath \
+				Process \
+				Underscore
+
 .PHONY: all
 all:
-	vim -c "Vitalize . --name=gonosen System.Filepath Process Underscore" -c q
+	vim -c "Vitalize . --name=gonosen $(VITAL_MODULES)" -c q
 
 .PHONY: test
 test:
