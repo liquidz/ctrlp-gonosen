@@ -25,6 +25,7 @@ Execute `:CtrlPGonosen`.
  * [`ghq`](https://github.com/motemen/ghq) managed repositories
  * Bookmarked directories
   * Default bookmark file is `~/.bookmark`.
+  * Sample bookmark file is [here](./test/files/bookmark.txt).
   * Customize your bookmark path with following.
 ```
 let g:gonosen#bookmark_file = '/path/to/your/bookmark.txt'

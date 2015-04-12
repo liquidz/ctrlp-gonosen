@@ -1,3 +1,3 @@
-.not_existing_directory
+./not_existing_directory
 ./README.md
 ./autoload
