@@ -77,8 +77,9 @@ function! gonosen#load_bookmarks(file) abort
   return []
 endfunction
 
-function! s:get_repository_name(path, ...) abort
-  return join(s:_.chain(s:FP.split(a:path)).last(2).value(), '/')
+function! s:parse_repository_path(repo, ...) abort
+  let name = join(s:_.last(s:FP.split(a:repo), 2), '/')
+  return name . g:gonosen#separator . a:repo
 endfunction
 
 ""
@@ -89,11 +90,7 @@ function! gonosen#load_repositories() abort
   let cmd = g:gonosen#ghq_command
   if executable(cmd)
     let repos = split(s:P.system(cmd . ' list --full-path'), "\n")
-    let names = s:_.map(repos, function('s:get_repository_name'))
-    return s:_.chain(names)
-        \.zip(repos)
-        \.map('join(v:val, g:gonosen#separator)')
-        \.value()
+    return s:_.map(repos, function('s:parse_repository_path'))
   endif
   return []
 endfunction
