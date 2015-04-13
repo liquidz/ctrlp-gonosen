@@ -77,9 +77,8 @@ function! gonosen#load_bookmarks(file) abort
   return []
 endfunction
 
-function! s:parse_repository_path(repo, ...) abort
-  let name = join(s:_.last(s:FP.split(a:repo), 2), '/')
-  return name . g:gonosen#separator . a:repo
+function! s:get_repository_name(repo, ...) abort
+  return join(s:_.last(s:FP.split(a:repo), 2), '/')
 endfunction
 
 ""
@@ -90,7 +89,17 @@ function! gonosen#load_repositories() abort
   let cmd = g:gonosen#ghq_command
   if executable(cmd)
     let repos = split(s:P.system(cmd . ' list --full-path'), "\n")
-    return s:_.map(repos, function('s:parse_repository_path'))
+    " Codes using s:_.map(arr, function('s:get_repository_name(')) will fail
+    " in Circle CI
+    let names = []
+    for repo in repos
+      call add(names, s:get_repository_name(repo))
+    endfor
+
+    return s:_.chain(names)
+        \.zip(repos)
+        \.map('join(v:val, g:gonosen#separator)')
+        \.value()
   endif
   return []
 endfunction
