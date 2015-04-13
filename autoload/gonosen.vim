@@ -21,6 +21,15 @@ let s:_  = s:V.import('Underscore').import()
 
 ""
 " @var
+" String to separate title and path in ctrlp candidates.
+" Default value is '\t\t'
+"
+if !exists('g:gonosen#separator')
+  let g:gonosen#separator = "\t\t"
+endif
+
+""
+" @var
 " Bookmark file path.
 " Default value is '~/.bookmark'.
 "
@@ -62,9 +71,14 @@ function! gonosen#load_bookmarks(file) abort
   if filereadable(file)
     return s:_.chain(readfile(file))
         \.filter('isdirectory(v:val)')
+        \.map('v:val . g:gonosen#separator . v:val')
         \.value()
   endif
   return []
+endfunction
+
+function! s:get_repository_name(path, ...) abort
+  return join(s:_.chain(s:FP.split(a:path)).last(2).value(), '/')
 endfunction
 
 ""
@@ -74,8 +88,12 @@ endfunction
 function! gonosen#load_repositories() abort
   let cmd = g:gonosen#ghq_command
   if executable(cmd)
-    let repos = s:P.system(cmd . ' list --full-path')
-    return split(repos, "\n")
+    let repos = split(s:P.system(cmd . ' list --full-path'), "\n")
+    let names = s:_.map(repos, function('s:get_repository_name'))
+    return s:_.chain(names)
+        \.zip(repos)
+        \.map('join(v:val, g:gonosen#separator)')
+        \.value()
   endif
   return []
 endfunction
@@ -110,7 +128,7 @@ function! gonosen#load_unite_bookmarks() abort
     return s:_.chain(readfile(file))
         \.rest()
         \.map('split(v:val, "\t")')
-        \.map('v:val[1]')
+        \.map('v:val[0] . g:gonosen#separator . v:val[1]')
         \.value()
   endif
   return []
@@ -132,7 +150,7 @@ function! gonosen#load_ctrlp_bookmarks() abort
   if filereadable(file)
     return s:_.chain(readfile(file))
         \.map('split(v:val, "\t")')
-        \.map('v:val[1]')
+        \.map('v:val[0] . g:gonosen#separator . v:val[1]')
         \.value()
   endif
   return []
