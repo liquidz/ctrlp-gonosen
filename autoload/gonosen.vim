@@ -36,6 +36,14 @@ if !exists('g:gonosen#unite_bookmark_name')
   let g:gonosen#unite_bookmark_name = 'default'
 endif
 
+""
+" @var
+" ghq command.
+" Default value is 'ghq'.
+if !exists('g:gonosen#ghq_command')
+  let g:gonosen#ghq_command = 'ghq'
+endif
+
 " check whether specified directory does not match to
 " |g:ctrlp_custom_ignore| or not
 function! s:does_not_match_custom_ignore(dir, ...) abort
@@ -64,8 +72,9 @@ endfunction
 " Return empty array if `ghq` is not installed.
 "
 function! gonosen#load_repositories() abort
-  if executable('ghq')
-    let repos = s:P.system('ghq list --full-path')
+  let cmd = g:gonosen#ghq_command
+  if executable(cmd)
+    let repos = s:P.system(cmd . ' list --full-path')
     return split(repos, "\n")
   endif
   return []

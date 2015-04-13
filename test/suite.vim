@@ -5,20 +5,22 @@ let s:V  = vital#of('gonosen')
 let s:FP = s:V.import('System.Filepath')
 
 function! s:suite.load_bookmarks_test() abort
-  let file = s:FP.join(getcwd(), 'test', 'files', 'bookmark.txt')
+  let file = s:FP.join(getcwd(), 'test', 'files', 'local', 'bookmark.txt')
   let ret  = gonosen#load_bookmarks(file)
   call s:assert.equals(ret, ['./autoload'])
 endfunction
 
 function! s:suite.load_repositories_test() abort
+  let g:gonosen#ghq_command = 'null'
   let ret = gonosen#load_repositories()
+  call s:assert.empty(ret)
 
-  " FIXME
-  if executable('ghq')
-    call s:assert.not_empty(ret)
-  else
-    call s:assert.empty(ret)
-  endif
+  let g:gonosen#ghq_command =
+      \ s:FP.join(getcwd(), 'test', 'files', 'ghq', 'stub')
+  let ret = gonosen#load_repositories()
+  call s:assert.equals(ret, [
+      \ '/path/to/src/foo/bar',
+      \ '/path/to/src/bar/baz'])
 endfunction
 
 function! s:suite.load_unite_bookmarks_test() abort

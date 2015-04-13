@@ -1,0 +1,6 @@
+#!/bin/sh
+
+cat <<EOT
+/path/to/src/foo/bar
+/path/to/src/bar/baz
+EOT
