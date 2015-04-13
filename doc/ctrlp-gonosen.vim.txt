@@ -1,6 +1,6 @@
 *ctrlp-gonosen.vim.txt*	ctrlp gonosen extension
 
-Version: 1.0.2
+Version: 1.0.3
 Author : uochan <liquidz.uo+vim@gmail.com>
 License: MIT LICENSE
 
@@ -80,6 +80,11 @@ Key Mappings					*ctrlp-gonosen.vim-key-mappings*
 ==============================================================================
 Customizing					*ctrlp-gonosen.vim-customizing*
 
+g:gonosen#separator				*g:gonosen#separator*
+	String to separate title and path in ctrlp candidates.
+	Default value is '\t\t'
+	
+
 g:gonosen#bookmark_file				*g:gonosen#bookmark_file*
 	Bookmark file path.
 	Default value is '~/.bookmark'.
@@ -88,6 +93,10 @@ g:gonosen#bookmark_file				*g:gonosen#bookmark_file*
 g:gonosen#unite_bookmark_name				*g:gonosen#unite_bookmark_name*
 	Unite Bookmark name.
 	Default value is 'default'.
+
+g:gonosen#ghq_command				*g:gonosen#ghq_command*
+	ghq command.
+	Default value is 'ghq'.
 
 
 

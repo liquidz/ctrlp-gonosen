@@ -21,6 +21,15 @@ let s:_  = s:V.import('Underscore').import()
 
 ""
 " @var
+" String to separate title and path in ctrlp candidates.
+" Default value is '\t\t'
+"
+if !exists('g:gonosen#separator')
+  let g:gonosen#separator = "\t\t"
+endif
+
+""
+" @var
 " Bookmark file path.
 " Default value is '~/.bookmark'.
 "
@@ -34,6 +43,14 @@ endif
 " Default value is 'default'.
 if !exists('g:gonosen#unite_bookmark_name')
   let g:gonosen#unite_bookmark_name = 'default'
+endif
+
+""
+" @var
+" ghq command.
+" Default value is 'ghq'.
+if !exists('g:gonosen#ghq_command')
+  let g:gonosen#ghq_command = 'ghq'
 endif
 
 " check whether specified directory does not match to
@@ -54,9 +71,14 @@ function! gonosen#load_bookmarks(file) abort
   if filereadable(file)
     return s:_.chain(readfile(file))
         \.filter('isdirectory(v:val)')
+        \.map('v:val . g:gonosen#separator . v:val')
         \.value()
   endif
   return []
+endfunction
+
+function! s:get_repository_name(repo, ...) abort
+  return join(s:_.last(s:FP.split(a:repo), 2), '/')
 endfunction
 
 ""
@@ -64,9 +86,20 @@ endfunction
 " Return empty array if `ghq` is not installed.
 "
 function! gonosen#load_repositories() abort
-  if executable('ghq')
-    let repos = s:P.system('ghq list --full-path')
-    return split(repos, "\n")
+  let cmd = g:gonosen#ghq_command
+  if executable(cmd)
+    let repos = split(s:P.system(cmd . ' list --full-path'), "\n")
+    " Codes using s:_.map(arr, function('s:get_repository_name(')) will fail
+    " in Circle CI
+    let names = []
+    for repo in repos
+      call add(names, s:get_repository_name(repo))
+    endfor
+
+    return s:_.chain(names)
+        \.zip(repos)
+        \.map('join(v:val, g:gonosen#separator)')
+        \.value()
   endif
   return []
 endfunction
@@ -101,7 +134,7 @@ function! gonosen#load_unite_bookmarks() abort
     return s:_.chain(readfile(file))
         \.rest()
         \.map('split(v:val, "\t")')
-        \.map('v:val[1]')
+        \.map('v:val[0] . g:gonosen#separator . v:val[1]')
         \.value()
   endif
   return []
@@ -123,7 +156,7 @@ function! gonosen#load_ctrlp_bookmarks() abort
   if filereadable(file)
     return s:_.chain(readfile(file))
         \.map('split(v:val, "\t")')
-        \.map('v:val[1]')
+        \.map('v:val[0] . g:gonosen#separator . v:val[1]')
         \.value()
   endif
   return []
