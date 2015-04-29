@@ -39,7 +39,7 @@ Interface					*ctrlp-gonosen.vim-interface*
 ------------------------------------------------------------------------------
 Commands					*ctrlp-gonosen.vim-commands*
 
-CtrlPGonosen				*CtrlPGonosen*
+CtrlPGonosen					*CtrlPGonosen*
 	Launch ctrlp-gonosen extension.
 	
 
@@ -47,26 +47,26 @@ CtrlPGonosen				*CtrlPGonosen*
 ------------------------------------------------------------------------------
 Functions					*ctrlp-gonosen.vim-functions*
 
-gonosen#load_bookmarks(file)				*gonosen#load_bookmarks*
+gonosen#load_bookmarks(file)			*gonosen#load_bookmarks*
 	Return directory array that defined in book mark file.
 	Bookmark file is defined by |g:gonosen#bookmark_file|.
 	
 
-gonosen#load_repositories()				*gonosen#load_repositories*
+gonosen#load_repositories()			*gonosen#load_repositories*
 	Return repository list that is managed by `ghq`.
 	Return empty array if `ghq` is not installed.
 	
 
-gonosen#load_unite_bookmarks()				*gonosen#load_unite_bookmarks*
+gonosen#load_unite_bookmarks()			*gonosen#load_unite_bookmarks*
 	Return unite-bookmark directories.
 	Unite bookmark file is defined by |g:gonosen#unite_bookmark_name|.
 	
 
-gonosen#load_ctrlp_bookmarks()				*gonosen#load_ctrlp_bookmarks*
+gonosen#load_ctrlp_bookmarks()			*gonosen#load_ctrlp_bookmarks*
 	Return ctrlp bookmark directories.
 	
 
-gonosen#get_candidates()				*gonosen#get_candidates*
+gonosen#get_candidates()			*gonosen#get_candidates*
 	Return candidates that are shown in ctrlp.
 	
 
@@ -90,7 +90,7 @@ g:gonosen#bookmark_file				*g:gonosen#bookmark_file*
 	Default value is '~/.bookmark'.
 	
 
-g:gonosen#unite_bookmark_name				*g:gonosen#unite_bookmark_name*
+g:gonosen#unite_bookmark_name			*g:gonosen#unite_bookmark_name*
 	Unite Bookmark name.
 	Default value is 'default'.
 
